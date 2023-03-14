@@ -83,23 +83,51 @@ function App() {
     return mock
   }
 
+  /* function carregarTodosOsEpisodios(){
+    return mock (episode)
+  }
+
+  function listaEpisodio(){
+    const todosEpisodios = carregarTodosOsEpisodios()
+
+    return todosEpisodios.map(episodios =>
+        <div className='lista-secundaria'>
+          Participações: 
+          <ul>
+            <li>
+              <a href='{episodios.episode}'>episodio</a>
+            </li>
+          </ul>
+        </div>
+      )
+  } */
+
   function listaPersonagem(){
     const todosPersonagens = carregarTodosOsPersonagens()
     
     return todosPersonagens.map(personagem =>
       <div className='card char'>
-        <img src={personagem.image} alt={personagem.name}/>
+        <img src={personagem.image} alt={personagem.name} />
         <h2>{personagem.name}</h2>
-        <span className='char-info'><b>Espécie:</b>{personagem.species}</span>
-        <span className='char-info'><b>Gênero:</b>{personagem.gender}</span>
-        <span className='lista-secundaria'><b>Participações:</b>{personagem.episode}</span>
-        <span className='char-info'><b>Status:</b>{personagem.status}</span>
+        <div className='char-info'>
+          <span className='char-info'>Espécie: {personagem.species}</span>
+          <span className='char-info'>Gênero: {personagem.gender}</span>
+        </div>  
+
+        {/* Array não funciona */}
+        <div className='lista-secundaria'>
+          Participações: {personagem.episode}
+        </div>
+
+        <div className='char-info'>
+          <span className='char-info'>Status: {personagem.status}</span>
+        </div>
       </div>)
       
     }
 
     useEffect(() => {
-      setConteudo(listaPersonagem())
+      setConteudo(listaPersonagem()/*, listaEpisodio() */)
   }, [])
 
  
