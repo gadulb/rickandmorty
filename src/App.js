@@ -79,55 +79,55 @@ const mock = [
 function App() {
   const [ conteudo, setConteudo ] = useState([<></>])
 
-  function carregarTodosOsPersonagens(){
-    return mock
+  async function carregarTodosOsPersonagens(){
+    const retorno = await fetch(
+      'https://rickandmortyapi.com/api/character',
+      { method: 'GET' }
+    )
+    .then(response => response.json())
+    console.log()
+    return retorno.results
   }
 
-  /* function carregarTodosOsEpisodios(){
-    return mock (episode)
-  }
-
-  function listaEpisodio(){
-    const todosEpisodios = carregarTodosOsEpisodios()
-
-    return todosEpisodios.map(episodios =>
-        <div className='lista-secundaria'>
-          Participações: 
-          <ul>
-            <li>
-              <a href='{episodios.episode}'>episodio</a>
-            </li>
-          </ul>
-        </div>
-      )
-  } */
-
-  function listaPersonagem(){
-    const todosPersonagens = carregarTodosOsPersonagens()
+  async function listaPersonagem(){
+    const todosPersonagens = await carregarTodosOsPersonagens()
     
     return todosPersonagens.map(personagem =>
       <div className='card char'>
         <img src={personagem.image} alt={personagem.name} />
         <h2>{personagem.name}</h2>
+
         <div className='char-info'>
-          <span className='char-info'>Espécie: {personagem.species}</span>
-          <span className='char-info'>Gênero: {personagem.gender}</span>
+          <span className=''>
+            <b>Espécie: </b>{personagem.species}
+          </span>
+          <span className=''>
+            <b>Gênero: </b>{personagem.gender}
+          </span>
         </div>  
 
-        {/* Array não funciona */}
-        <div className='lista-secundaria'>
-          Participações: {personagem.episode}
+        <div>
+          <div className='lista-secundaria'>
+            <b>Participações:</b> {personagem.episode.map(ep => {
+              <>b</>
+            })}
+          </div>
         </div>
 
-        <div className='char-info'>
-          <span className='char-info'>Status: {personagem.status}</span>
-        </div>
+        <h5>
+          <span>
+            <b>Status: </b>{personagem.status}
+          </span>
+        </h5>
       </div>)
       
     }
 
     useEffect(() => {
-      setConteudo(listaPersonagem()/*, listaEpisodio() */)
+      async function carregar(){
+        setConteudo(await listaPersonagem()/*, listaEpisodio() */)
+      }
+      carregar()
   }, [])
 
  
