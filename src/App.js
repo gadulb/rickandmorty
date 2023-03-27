@@ -220,6 +220,8 @@ function App() {
           <b>Gênero:</b>
           <span>Masculino</span>
           <span>Feminino</span>
+          <span>Sem Gênero</span>
+          <span>Desconhecido</span>
         </div>
       </div>
       <div className="lista-principal">
