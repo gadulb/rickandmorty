@@ -127,6 +127,10 @@ function App() {
         return 'Masculino'
       case 'Famale':
         return 'Feminino'
+      case 'Genderless':
+        return 'Sem Gênero'
+      case 'unknown':
+        return 'Desconhecido'
       default:
         return genero
     }
