@@ -79,6 +79,59 @@ const mock = [
 function App() {
   const [ conteudo, setConteudo ] = useState([<></>])
 
+    function traduzirStatus(status){
+      switch(status){
+        case 'Alive':
+          return 'Vivo'
+        case 'Dead':
+          return 'Morto'
+        case 'unknown':
+          return 'Desconhecido'
+        default:
+          return status
+    }
+  }
+
+  function traduzirEspecie(especie){
+    switch(especie){
+      case 'Human':
+        return 'Humano'
+      case 'Alien':
+        return 'Alienígena'
+      case 'Humanoid':
+        return 'Humanoide'
+      case 'Animal':
+        return 'Animal'
+      case 'Poopybutthole':
+        return 'Poopybutthole'
+      case 'Mythological Creature':
+        return 'Criatura Mítica'
+      case 'Robot':
+        return 'Robô'
+      case 'Disease':
+        return 'Doença'
+      case 'Cronenberg':
+        return 'Cronenberg'
+      case 'unknown':
+        return 'Desconhecido'
+      case 'Parasite':
+        return 'Parasita'
+      default:
+        return especie
+    }
+  }
+
+  function traduzirGenero(genero){
+    switch(genero){
+      case 'Male':
+        return 'Masculino'
+      case 'Famale':
+        return 'Feminino'
+      default:
+        return genero
+    }
+  }
+
   async function carregarTodosOsPersonagens(){
     const retorno = await fetch(
       'https://rickandmortyapi.com/api/character',
@@ -96,31 +149,32 @@ function App() {
       <div className='card char'>
         <img src={personagem.image} alt={personagem.name} />
         <h2>{personagem.name}</h2>
-
         <div className='char-info'>
           <span className=''>
-            <b>Espécie: </b>{personagem.species}
+            <b>Espécie: </b>{traduzirEspecie(personagem.species)}
           </span>
           <span className=''>
-            <b>Gênero: </b>{personagem.gender}
+            <b>Gênero: </b>{traduzirGenero(personagem.gender)}
           </span>
         </div>  
 
         <div>
           <div className='lista-secundaria'>
-            <b>Participações:</b> {personagem.episode.map(ep => {
-              <>b</>
-            })}
+            <b>Participações:</b> 
+            {personagem.episode.map(ep => (
+              <span key={personagem.name+(ep.split('episode/')[1])}>
+                Ep-{(ep.split('episode/')[1])}
+              </span>
+            ))}
           </div>
         </div>
 
         <h5>
           <span>
-            <b>Status: </b>{personagem.status}
+            <b>Status: </b>{traduzirStatus(personagem.status)}
           </span>
         </h5>
       </div>)
-      
     }
 
     useEffect(() => {
@@ -136,6 +190,34 @@ function App() {
       <header className="cabecalho">
         <h1>Rick And Morty API</h1>
       </header>
+      <div className='filtros'>
+        <span className='filtros-titulo'>Filtros</span>
+         <div className='filtro'>
+          <b>Status:</b>
+          <span>Vivo</span>
+          <span>Morto</span>
+          <span>Desconhecido</span>
+        </div>
+        <div className='filtro'>
+          <b>Espécie:</b>
+          <span>Humano</span>
+          <span>Alienígena</span>
+          <span>Humanoide</span>
+          <span>Animal</span>
+          <span>Poopybutthole</span>
+          <span>Cronenberg</span>
+          <span>Robô</span>
+          <span>Parasita</span>
+          <span>Doença</span>
+          <span>Criatura Mítica</span>
+          <span>Desconhecido</span>
+        </div>
+        <div className='filtro'>
+          <b>Gênero:</b>
+          <span>Masculino</span>
+          <span>Feminino</span>
+        </div>
+      </div>
       <div className="lista-principal">
         { conteudo }
       </div>
