@@ -78,8 +78,9 @@ const mock = [
 
 function App() {
   const [ conteudo, setConteudo ] = useState([<></>])
+  const [ busca, setBusca ] = useState('');
 
-    function traduzirStatus(status){
+  function traduzirStatus(status){
       switch(status){
         case 'Alive':
           return 'Vivo'
@@ -104,8 +105,6 @@ function App() {
         return 'Animal'
       case 'Poopybutthole':
         return 'Poopybutthole'
-      case 'Mythological Creature':
-        return 'Criatura Mítica'
       case 'Robot':
         return 'Robô'
       case 'Disease':
@@ -114,8 +113,6 @@ function App() {
         return 'Cronenberg'
       case 'unknown':
         return 'Desconhecido'
-      case 'Parasite':
-        return 'Parasita'
       default:
         return especie
     }
@@ -138,7 +135,7 @@ function App() {
 
   async function carregarTodosOsPersonagens(){
     const retorno = await fetch(
-      'https://rickandmortyapi.com/api/character',
+      'https://rickandmortyapi.com/api/character'+busca,
       { method: 'GET' }
     )
     .then(response => response.json())
@@ -186,44 +183,44 @@ function App() {
         setConteudo(await listaPersonagem()/*, listaEpisodio() */)
       }
       carregar()
-  }, [])
+  }, [busca])
 
  
   return (
     <div className="App">
+
       <header className="cabecalho">
         <h1>Rick And Morty API</h1>
       </header>
       <div className='filtros'>
         <span className='filtros-titulo'>Filtros</span>
-         <div className='filtro'>
+        <div className='filtro'>
           <b>Status:</b>
-          <span>Vivo</span>
-          <span>Morto</span>
-          <span>Desconhecido</span>
+          <span onClick={() => setBusca('?status=alive')}>Vivo</span>
+          <span onClick={() => setBusca('?status=dead')}>Morto</span>
+          <span onClick={() => setBusca('?status=unknown')}>Desconhecido</span>
         </div>
         <div className='filtro'>
           <b>Espécie:</b>
-          <span>Humano</span>
-          <span>Alienígena</span>
-          <span>Humanoide</span>
-          <span>Animal</span>
-          <span>Poopybutthole</span>
-          <span>Cronenberg</span>
-          <span>Robô</span>
-          <span>Parasita</span>
-          <span>Doença</span>
-          <span>Criatura Mítica</span>
-          <span>Desconhecido</span>
+          <span onClick={() => setBusca('?species=human')}>Humano</span>
+          <span onClick={() => setBusca('?species=alien')}>Alienígena</span>
+          <span onClick={() => setBusca('?species=humanoid')}>Humanoide</span>
+          <span onClick={() => setBusca('?species=animal')}>Animal</span>
+          <span onClick={() => setBusca('?species=poopybutthole')}>Poopybutthole</span>
+          <span onClick={() => setBusca('?species=cronenberg')}>Cronenberg</span>
+          <span onClick={() => setBusca('?species=robot')}>Robô</span>
+          <span onClick={() => setBusca('?species=disease')}>Doença</span>
+          <span onClick={() => setBusca('?species=unknown')}>Desconhecido</span>
         </div>
         <div className='filtro'>
           <b>Gênero:</b>
-          <span>Masculino</span>
-          <span>Feminino</span>
-          <span>Sem Gênero</span>
-          <span>Desconhecido</span>
+          <span onClick={() => setBusca('?gender=male')}>Masculino</span>
+          <span onClick={() => setBusca('?gender=female')}>Feminino</span>
+          <span onClick={() => setBusca('?gender=genderless')}>Sem Gênero</span>
+          <span onClick={() => setBusca('?gender=unknown')}>Desconhecido</span>
         </div>
       </div>
+
       <div className="lista-principal">
         { conteudo }
       </div>
