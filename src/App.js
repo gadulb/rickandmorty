@@ -125,7 +125,7 @@ function App() {
     switch(genero){
       case 'Male':
         return 'Masculino'
-      case 'Famale':
+      case 'Female':
         return 'Feminino'
       case 'Genderless':
         return 'Sem Gênero'
