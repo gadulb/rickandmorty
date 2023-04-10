@@ -180,7 +180,20 @@ function App() {
       </div>)
     }
 
-    useEffect(() => { //quando alguma coisa acontecer, tipo um if, ele vai executar o que está dentro
+  function montarFiltro(tipo, valor){
+    const filtros = new URLSearchParams(busca); //URLSearchParams = classe que permite manipular a query string de uma URL
+    // cria tipo um array com as informações dos filtros
+    const retorno = filtros.get(tipo)
+    if (retorno === valor) {
+      filtros.delete(tipo)
+    } else {
+    filtros.set(tipo, valor)
+    }
+
+    setBusca('?'+filtros.toString())
+  }
+
+  useEffect(() => { //quando alguma coisa acontecer, tipo um if, ele vai executar o que está dentro
       async function carregar(){
         setConteudo(await listaPersonagem()/*, listaEpisodio() */)
       }
@@ -198,28 +211,28 @@ function App() {
         <span className='filtros-titulo'>Filtros</span>
         <div className='filtro'>
           <b>Status:</b>
-          <span onClick={() => setBusca('?status=alive')}>Vivo</span>
-          <span onClick={() => setBusca('?status=dead')}>Morto</span>
-          <span onClick={() => setBusca('?status=unknown')}>Desconhecido</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('status', 'alive')}>Vivo</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('status', 'dead')}>Morto</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('status', 'unknown')}>Desconhecido</span>
         </div>
         <div className='filtro'>
           <b>Espécie:</b>
-          <span onClick={() => setBusca('?species=human')}>Humano</span>
-          <span onClick={() => setBusca('?species=alien')}>Alienígena</span>
-          <span onClick={() => setBusca('?species=humanoid')}>Humanoide</span>
-          <span onClick={() => setBusca('?species=animal')}>Animal</span>
-          <span onClick={() => setBusca('?species=poopybutthole')}>Poopybutthole</span>
-          <span onClick={() => setBusca('?species=cronenberg')}>Cronenberg</span>
-          <span onClick={() => setBusca('?species=robot')}>Robô</span>
-          <span onClick={() => setBusca('?species=disease')}>Doença</span>
-          <span onClick={() => setBusca('?species=unknown')}>Desconhecido</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species', 'human')}>Humano</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species', 'alien')}>Alienígena</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species', 'humanoid')}>Humanoide</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species', 'animal')}>Animal</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species', 'poopybutthole')}>Poopybutthole</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species', 'cronenberg')}>Cronenberg</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species', 'robot')}>Robô</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species', 'disease')}>Doença</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species', 'unknown')}>Desconhecido</span>
         </div>
         <div className='filtro'>
           <b>Gênero:</b>
-          <span onClick={() => setBusca('?gender=male')}>Masculino</span>
-          <span onClick={() => setBusca('?gender=female')}>Feminino</span>
-          <span onClick={() => setBusca('?gender=genderless')}>Sem Gênero</span>
-          <span onClick={() => setBusca('?gender=unknown')}>Desconhecido</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('gender', 'male')}>Masculino</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('gender', 'female')}>Feminino</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('gender', 'genderless')}>Sem Gênero</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('gender', 'unknown')}>Desconhecido</span>
         </div>
       </div>
 
