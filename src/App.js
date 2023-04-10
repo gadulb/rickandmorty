@@ -135,10 +135,10 @@ function App() {
     }
   }
 
-  async function carregarTodosOsPersonagens(){
-    const retorno = await fetch(
+  async function carregarTodosOsPersonagens(){ //async = função assíncrona = não espera a resposta da requisição para continuar
+    const retorno = await fetch( //await = aguarda a resposta da requisição e depois retorna o valor :)
       'https://rickandmortyapi.com/api/character'+busca,
-      { method: 'GET' }
+      { method: 'GET' } //GET = pegar dados de um servidor (padrão) | POST = enviar dados para um servidor
     )
     .then(response => response.json())
     console.log()
